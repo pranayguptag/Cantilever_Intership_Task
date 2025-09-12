@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-commerce Products</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Amazon & Myntra Product Search</h2>
+
+        <!-- Search Form -->
+        <form method="POST" class="row g-3 mb-4">
+            <div class="col-md-4">
+                <input type="text" name="query" class="form-control" placeholder="Search by keyword">
+            </div>
+            <div class="col-md-2">
+                <input type="number" step="any" name="min_price" class="form-control" placeholder="Min Price">
+            </div>
+            <div class="col-md-2">
+                <input type="number" step="any" name="max_price" class="form-control" placeholder="Max Price">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </form>
+
+        <!-- Results Table -->
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Source</th>
+                    <th>Title</th>
+                    <th>Price (₹)</th>
+                    <th>Rating</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in tables %}
+                <tr>
+                    <td>{{ row.Source }}</td>
+                    <td>{{ row.Title }}</td>
+                    <td>{{ row.Price }}</td>
+                    <td>{{ row.Rating if row.Rating else 'N/A' }}</td>
+                    <td><a href="{{ row.Link }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
