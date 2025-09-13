@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Analysis Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function setSearch(val){ document.getElementById('query').value=val; }
+
+    // Show loading message when form submitted
+    function showLoadingMessage() {
+      document.getElementById("loadingMessage").classList.remove("hidden");
+    }
+  </script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col justify-between">
+
+  <!-- Navbar -->
+  <nav class="bg-gradient-to-r from-blue-600 to-indigo-700 p-4 text-white shadow">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="font-bold text-2xl">🛒 Product Analysis Tool</h1>
+      <div class="flex gap-6">
+        <a href="/" class="hover:underline">Home</a>
+        <a href="/products" class="hover:underline">Products</a>
+        <a href="/visuals" class="hover:underline">Visuals Analysis</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-16 text-center shadow-lg">
+    <h2 class="text-4xl font-bold mb-4">✨ Shop Smarter, Compare Faster 🚀</h2>
+    <p class="text-lg mb-6">Compare prices, ratings & trends across Amazon, Myntra, and Flipkart in seconds!</p>
+  </header>
+
+  <!-- Main -->
+  <main class="container mx-auto mt-10 flex-1">
+    {% if message %}
+      <p class="text-red-600 text-center mb-4">{{ message }}</p>
+    {% endif %}
+
+    <!-- Search Box -->
+    <form method="POST" onsubmit="showLoadingMessage()" class="bg-white shadow-xl p-6 rounded-lg max-w-2xl mx-auto">
+      <input id="query" name="query" placeholder="Search products..." required
+        class="w-full border p-3 rounded mb-4 focus:ring-2 focus:ring-blue-400" />
+
+      <!-- Recommended Buttons -->
+      <div class="flex flex-wrap gap-2 mb-6 justify-center">
+        {% for word in ["Cloths","Shoes","Beauty Products","Smartphones","Laptops"] %}
+          <button type="button" onclick="setSearch('{{word}}')" 
+            class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white px-4 py-2 rounded-full shadow hover:scale-105 transition">
+            {{word}}
+          </button>
+        {% endfor %}
+      </div>
+
+      <!-- Checkboxes -->
+      <div class="flex gap-6 justify-center mb-6">
+        <label><input type="checkbox" name="amazon" class="mr-2">Amazon</label>
+        <label><input type="checkbox" name="myntra" class="mr-2">Myntra</label>
+        <label><input type="checkbox" name="flipkart" class="mr-2">Flipkart</label>
+      </div>
+
+      <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-3 rounded-lg hover:scale-105 transition">
+        🚀 Search & Analyze
+      </button>
+
+      <!-- Loading Message -->
+      <p id="loadingMessage" class="hidden text-center mt-4 text-yellow-600 font-medium">
+        ⏳ Please wait 10–30 seconds while we fetch live product data...
+      </p>
+    </form>
+
+    <!-- Info Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+      <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-bold mb-2">🔍 Unified Search</h3>
+        <p class="text-gray-600">Search once and fetch products from multiple platforms in real time.</p>
+      </div>
+      <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-bold mb-2">📈 Smart Comparisons</h3>
+        <p class="text-gray-600">Easily compare prices and ratings side-by-side to find the best deals.</p>
+      </div>
+      <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-bold mb-2">⚡ Automated Insights</h3>
+        <p class="text-gray-600">Save time with auto-generated highlights and quick decision support.</p>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="flex justify-center gap-6 mt-12">
+      <a href="/products" class="bg-green-500 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow">📦 View Products</a>
+      <a href="/visuals" class="bg-purple-500 hover:bg-purple-700 text-white px-6 py-3 rounded-lg shadow">📊 Visuals Analysis</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white text-center py-4 mt-12">
+    © 2025 Product Analysis Tool. Built with ❤️ for smarter shopping.
+  </footer>
+</body>
+</html>

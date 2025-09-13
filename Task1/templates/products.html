@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scraped Products</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col justify-between">
+
+  <!-- Navbar -->
+  <nav class="bg-gradient-to-r from-blue-600 to-indigo-700 p-4 text-white shadow">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="font-bold text-2xl">🛒 Product Analysis Tool</h1>
+      <div class="flex gap-6">
+        <a href="/" class="hover:underline">Home</a>
+        <a href="/products" class="hover:underline">Products</a>
+        <a href="/visuals" class="hover:underline">Visuals Analysis</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mx-auto mt-10 flex-1">
+
+    <!-- Info Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-bold mb-2">📦 Total Products</h3>
+        <p class="text-gray-600">All scraped products combined from Amazon, Myntra & Flipkart.</p>
+      </div>
+      <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-bold mb-2">💡 Quick Insights</h3>
+        <p class="text-gray-600">Check top cheapest & expensive items for smarter decisions.</p>
+      </div>
+      <div class="bg-white shadow-lg p-6 rounded-lg text-center hover:shadow-2xl transition">
+        <h3 class="text-xl font-bold mb-2">⬇️ Export Data</h3>
+        <p class="text-gray-600">Download all product details into a CSV for offline analysis.</p>
+      </div>
+    </div>
+
+    <!-- Header with Buttons -->
+    <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
+      <h2 class="text-2xl font-semibold">📦 Scraped Products</h2>
+      <div class="flex gap-4">
+        <a href="/" class="bg-emerald-600 hover:bg-emerald-800 text-white px-4 py-2 rounded-lg shadow">🔍 Search Again</a>
+        <a href="/visuals" class="bg-purple-600 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow">📊 Visuals Analysis</a>
+        <a href="/download_csv" class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded-lg shadow">⬇️ Download CSV</a>
+      </div>
+    </div>
+
+    <!-- Highlight Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+      <div class="bg-white shadow-lg p-6 rounded-lg">
+        <h3 class="text-xl font-bold mb-3">💰 Top 5 Cheapest Products</h3>
+        <ul class="list-disc pl-5 text-gray-700">
+          {% for row in cheapest %}
+            <li>{{ row.Title }} (₹{{ row.Price }}) - {{ row.Source }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="bg-white shadow-lg p-6 rounded-lg">
+        <h3 class="text-xl font-bold mb-3">💎 Top 5 Most Expensive Products</h3>
+        <ul class="list-disc pl-5 text-gray-700">
+          {% for row in expensive %}
+            <li>{{ row.Title }} (₹{{ row.Price }}) - {{ row.Source }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Products Table -->
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+      <table class="table-auto w-full border-collapse">
+        <thead class="bg-blue-600 text-white">
+          <tr>
+            <th class="px-4 py-2">Source</th>
+            <th class="px-4 py-2">Title</th>
+            <th class="px-4 py-2">Price (₹)</th>
+            <th class="px-4 py-2">Rating</th>
+            <th class="px-4 py-2">Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in tables %}
+          <tr class="border-b hover:bg-gray-100">
+            <td class="px-4 py-2">{{ row.Source }}</td>
+            <td class="px-4 py-2">{{ row.Title }}</td>
+            <td class="px-4 py-2">{{ row.Price }}</td>
+            <td class="px-4 py-2">{{ row.Rating if row.Rating else 'N/A' }}</td>
+            <td class="px-4 py-2">
+              <a href="{{ row.Link }}" target="_blank" class="text-blue-600 hover:underline">View</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white text-center py-4 mt-12">
+    © 2025 Product Analysis Tool. Built with ❤️ for smarter shopping.
+  </footer>
+</body>
+</html>
